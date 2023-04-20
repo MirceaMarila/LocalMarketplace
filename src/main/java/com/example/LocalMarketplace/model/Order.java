@@ -18,7 +18,7 @@ public class Order {
     private ArrayList<Integer> productQuantity;
 
     @Column(name = "product_price")
-    private ArrayList<Integer> productPrice;
+    private ArrayList<Double> productPrice;
 
     public Integer getId() {
         return id;
