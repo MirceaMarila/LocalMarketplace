@@ -40,11 +40,11 @@ public class Order {
         this.productQuantity = productQuantity;
     }
 
-    public ArrayList<Integer> getProductPrice() {
+    public ArrayList<Double> getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(ArrayList<Integer> productPrice) {
+    public void setProductPrice(ArrayList<Double> productPrice) {
         this.productPrice = productPrice;
     }
 }
