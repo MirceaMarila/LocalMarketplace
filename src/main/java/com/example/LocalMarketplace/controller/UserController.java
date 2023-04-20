@@ -1,6 +1,5 @@
 package com.example.LocalMarketplace.controller;
 
-import com.example.LocalMarketplace.dto.Credentials;
 import com.example.LocalMarketplace.dto.UserDto;
 import com.example.LocalMarketplace.mapper.UserMapper;
 import com.example.LocalMarketplace.model.User;
@@ -33,9 +32,9 @@ public class UserController {
         return ResponseEntity.created(URI.create("/id/" + savedUser.getId())).body(savedUser);
     }
 
-    @GetMapping("/login")
-    public ResponseEntity<User> findProfileById(@RequestBody @Valid Credentials credentials) {
-        User user = userService.loginUser(credentials.getEmail(), credentials.getPassword());
+    @GetMapping("/login/email/{email}/password/{password}")
+    public ResponseEntity<User> findProfileById(@PathVariable String email, @PathVariable String password) {
+        User user = userService.loginUser(email, password);
         return ResponseEntity.ok().body(user);
     }
 }
