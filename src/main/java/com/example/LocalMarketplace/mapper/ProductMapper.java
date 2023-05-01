@@ -11,6 +11,7 @@ public class ProductMapper {
         Product product = new Product();
 
         product.setFarmerId(farmerId);
+
         product.setImage(productDto.getImage());
         product.setName(productDto.getName());
         product.setPrice(productDto.getPrice());
