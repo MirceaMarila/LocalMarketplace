@@ -3,10 +3,11 @@ package com.example.LocalMarketplace.model;
 import io.swagger.models.auth.In;
 
 import javax.persistence.*;
+import java.util.Comparator;
 
 @Entity
 @Table
-public class Product {
+public class Product implements Comparable<Product>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -81,4 +82,12 @@ public class Product {
     public void setCategory(String category) {
         this.category = category;
     }
+
+    @Override
+    public int compareTo(Product product) {
+        return this.getPrice().compareTo(product.getPrice());
+    }
+
+
+
 }

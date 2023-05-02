@@ -7,6 +7,7 @@ import com.example.LocalMarketplace.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ProductService {
@@ -43,5 +44,34 @@ public class ProductService {
         existingProduct.setName(productDto.getName());
 
         return productRepository.save(existingProduct);
+    }
+
+    public ArrayList<Product> getAllProductsByName(String productName) {
+        return productRepository.findAllProductByName(productName);
+    }
+
+ /*   public ArrayList<Product> getAllProductsByUserId(Integer userId) {
+        return productRepository.findAllProductByUserId(userId);
+    }*/
+
+    public ArrayList<Product> getAllProductsAvailable(Integer avaialable) {
+
+       return productRepository.findProductByAvailableGreaterThan(avaialable);
+
+    }
+
+    public List<Product> findAllProducts() {
+        return productRepository.findAll();
+    }
+
+
+    public Product saveProduct(Product product) {
+        return productRepository.save(product);
+    }
+
+
+    public ArrayList<Product> findAllProductsByCategory(String categoryName) {
+
+        return productRepository.findProductByCategory(categoryName);
     }
 }

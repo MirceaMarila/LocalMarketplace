@@ -14,4 +14,14 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Product findProductByName(String name);
 
     ArrayList<Product> findAllProductByFarmerId(Integer farmerId);
+
+    ArrayList<Product> findAllProductByName(String name);
+
+    /*ArrayList<Product> findAllProductByUserId(Integer userId);*/
+
+    ArrayList<Product> findProductByAvailableGreaterThan(Integer available);
+
+    ArrayList<Product> findProductByCategory(String categoryName);
+
+
 }

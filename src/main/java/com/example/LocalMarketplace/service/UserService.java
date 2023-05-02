@@ -6,6 +6,9 @@ import com.example.LocalMarketplace.model.User;
 import com.example.LocalMarketplace.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 @Service
 public class UserService {
 
@@ -41,4 +44,5 @@ public class UserService {
         else
             return existingUserEmail;
     }
+
 }
