@@ -78,6 +78,20 @@ public class ProductController {
         return ResponseEntity.ok().body(products);
     }
 
+    @GetMapping("/all/currency/{currency}")
+    public ResponseEntity<ArrayList<Product>> findAllProductInCurrency(@PathVariable String currency) {
+        ArrayList<Product> products = (ArrayList<Product>) productService.findAllProducts();
+        for(Product product:products)
+        {
+            if(currency.equals("EUR"))
+                product.setPrice(product.getPrice()/4.93);
+
+            else if(currency.equals("USD"))
+                product.setPrice(product.getPrice()/4.48);
+        }
+        return ResponseEntity.ok().body(products);
+    }
+
     /*@PostMapping("/cart/add/{productId}")
     public ResponseEntity<Product> saveProduct(@PathVariable Integer productId, @RequestBody @Valid ProductDto productDto) {
         Product product = productMapper.ProductDtoToProductMapper(productDto, productId);
