@@ -63,11 +63,39 @@ public class ProductController {
         return ResponseEntity.ok().body(products);
     }
 
+    @GetMapping("/{productName}/all/currency/{currency}")
+    public ResponseEntity<ArrayList<Product>> findAllProductByNameInCurrency(@PathVariable String productName, @PathVariable String currency) {
+        ArrayList<Product> products = productService.getAllProductsByName(productName);
+        for(Product product:products)
+        {
+            if(currency.equals("EUR"))
+                product.setPrice(product.getPrice()/4.93);
+
+            else if(currency.equals("USD"))
+                product.setPrice(product.getPrice()/4.48);
+        }
+        return ResponseEntity.ok().body(products);
+    }
+
 
     @GetMapping("/available/{available}")
     public ResponseEntity<ArrayList<Product>> findProductByAvailable(@PathVariable Integer available) {
         ArrayList<Product> products = productService.getAllProductsAvailable(available);
 
+        return ResponseEntity.ok().body(products);
+    }
+
+    @GetMapping("/available/{available}/currency/{currency}")
+    public ResponseEntity<ArrayList<Product>> findProductByAvailableInCurrency(@PathVariable Integer available, @PathVariable String currency) {
+        ArrayList<Product> products = productService.getAllProductsAvailable(available);
+        for(Product product:products)
+        {
+            if(currency.equals("EUR"))
+                product.setPrice(product.getPrice()/4.93);
+
+            else if(currency.equals("USD"))
+                product.setPrice(product.getPrice()/4.48);
+        }
         return ResponseEntity.ok().body(products);
     }
 
@@ -107,6 +135,20 @@ public class ProductController {
         return ResponseEntity.ok().body(products);
     }
 
+    @GetMapping("/all/category/{categoryName}/currency/{currency}")
+    public ResponseEntity<ArrayList<Product>> findAllProductByCategoryInCurrency(@PathVariable String categoryName, @PathVariable String currency) {
+        ArrayList<Product> products = productService.findAllProductsByCategory(categoryName);
+        for(Product product:products)
+        {
+            if(currency.equals("EUR"))
+                product.setPrice(product.getPrice()/4.93);
+
+            else if(currency.equals("USD"))
+                product.setPrice(product.getPrice()/4.48);
+        }
+        return ResponseEntity.ok().body(products);
+    }
+
     @GetMapping("/all/sorted/price/asc")
     public ResponseEntity<ArrayList<Product>> findAllProductByPriceSorted() {
 
@@ -118,11 +160,50 @@ public class ProductController {
 
     }
 
+    @GetMapping("/all/sorted/price/asc/currency/{currency}")
+    public ResponseEntity<ArrayList<Product>> findAllProductByPriceSortedInCurrency(@PathVariable String currency) {
+
+        ArrayList<Product> products = (ArrayList<Product>) productService.findAllProducts();
+
+        for(Product product:products)
+        {
+            if(currency.equals("EUR"))
+                product.setPrice(product.getPrice()/4.93);
+
+            else if(currency.equals("USD"))
+                product.setPrice(product.getPrice()/4.48);
+        }
+
+        Collections.sort(products);
+
+
+        return ResponseEntity.ok().body(products);
+
+    }
+
     @GetMapping("/all/sorted/price/desc")
     public ResponseEntity<ArrayList<Product>> findAllProductByPriceSortedDesc() {
 
         ArrayList<Product> products = (ArrayList<Product>) productService.findAllProducts();
 
+        Collections.sort(products, Collections.reverseOrder());
+
+        return ResponseEntity.ok().body(products);
+
+    }
+
+    @GetMapping("/all/sorted/price/desc/currency/{currency}")
+    public ResponseEntity<ArrayList<Product>> findAllProductByPriceSortedDescInCurrency(@PathVariable String currency) {
+
+        ArrayList<Product> products = (ArrayList<Product>) productService.findAllProducts();
+        for(Product product:products)
+        {
+            if(currency.equals("EUR"))
+                product.setPrice(product.getPrice()/4.93);
+
+            else if(currency.equals("USD"))
+                product.setPrice(product.getPrice()/4.48);
+        }
         Collections.sort(products, Collections.reverseOrder());
 
         return ResponseEntity.ok().body(products);
@@ -147,11 +228,62 @@ public class ProductController {
 
     }
 
+    @GetMapping("/all/sorted/name/asc/currency/{currency}")
+    public ResponseEntity<ArrayList<Product>> findAllProductByNameSortedInCurrency(@PathVariable String currency) {
+
+        ArrayList<Product> products = (ArrayList<Product>) productService.findAllProducts();
+
+        for(Product product:products)
+        {
+            if(currency.equals("EUR"))
+                product.setPrice(product.getPrice()/4.93);
+
+            else if(currency.equals("USD"))
+                product.setPrice(product.getPrice()/4.48);
+        }
+        Comparator<Product> compareByName = new Comparator<Product>() {
+            @Override
+            public int compare(Product o1, Product o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        };
+
+        Collections.sort(products, compareByName);
+
+        return ResponseEntity.ok().body(products);
+
+    }
+
     @GetMapping("/all/sorted/name/desc")
     public ResponseEntity<ArrayList<Product>> findAllProductByNameSortedDesc() {
 
         ArrayList<Product> products = (ArrayList<Product>) productService.findAllProducts();
 
+        Comparator<Product> compareByName = new Comparator<Product>() {
+            @Override
+            public int compare(Product o1, Product o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        };
+
+        Collections.sort(products, Collections.reverseOrder(compareByName));
+
+        return ResponseEntity.ok().body(products);
+
+    }
+
+    @GetMapping("/all/sorted/name/desc/currency/{currency}")
+    public ResponseEntity<ArrayList<Product>> findAllProductByNameSortedDescInCurrency(@PathVariable String currency) {
+
+        ArrayList<Product> products = (ArrayList<Product>) productService.findAllProducts();
+        for(Product product:products)
+        {
+            if(currency.equals("EUR"))
+                product.setPrice(product.getPrice()/4.93);
+
+            else if(currency.equals("USD"))
+                product.setPrice(product.getPrice()/4.48);
+        }
         Comparator<Product> compareByName = new Comparator<Product>() {
             @Override
             public int compare(Product o1, Product o2) {
